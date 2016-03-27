@@ -1,0 +1,25 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux.hdl
+
+/** 
+ * Multiplexor:
+ * out = a if sel == 0
+ *       b otherwise
+ */
+
+CHIP Mux {
+    IN a, b, sel;
+    OUT out;
+
+    PARTS:
+    // 1A if sel is equal to zero then the output is a. A Not logic gate with input sel.
+    // 1B And logic gate with input a and input Notsel equals the definition if sel==O then input a
+    // 2 if sel is equal to one then output is b. And logic gate
+    // 3 Sel is a selector and thus a Or b input is chosen.
+    Not(in=sel, out=Notsel);
+    And(a=a, b=Notsel, out=aAndNotsel);
+    And (a=b, b=sel, out=bAndsel);
+    Or (a=aAndNotsel, b=bAndsel, out=out);
+}
